@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import './Sidebar.scss';
 
@@ -6,39 +7,40 @@ const Sidebar = () => {
   return (
     <ul className="sidebar">
       <li>
-        <a href="/" className="active">
-          <i className="fas fa-user" /> My profile
-        </a>
+        <NavLink to="/profile">
+          <i className="fas fa-user" />
+          My profile
+        </NavLink>
       </li>
       <li>
-        <a href="/">
-          <i className="fas fa-comments" />
+        <NavLink to="/dialogues">
+          <i className="fas fa-envelope" />
           Messages
-        </a>
+        </NavLink>
       </li>
       <li>
-        <a href="/">
+        <NavLink to="/feed">
           <i className="fas fa-newspaper" />
-          News
-        </a>
+          News feed
+        </NavLink>
       </li>
       <li>
-        <a href="/">
+        <NavLink to="/users">
           <i className="fas fa-users" />
           Users
-        </a>
+        </NavLink>
       </li>
       <li>
-        <a href="/">
+        <NavLink to="/music">
           <i className="fas fa-music" />
           Music
-        </a>
+        </NavLink>
       </li>
       <li>
-        <a href="/">
+        <NavLink to="/settings">
           <i className="fas fa-cog" />
           Settings
-        </a>
+        </NavLink>
       </li>
     </ul>
   );

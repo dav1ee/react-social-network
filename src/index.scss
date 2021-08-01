@@ -34,23 +34,48 @@ body {
 }
 
 button {
+  background-color: #8757df;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: #fff;
+  border: 0;
   cursor: pointer;
+  transition: 0.1s ease-in-out;
+
+  i {
+    margin-left: 10px;
+  }
+
+  &:hover {
+    background-color: lighten(#8757df, 5%);
+  }
+
+  &:active {
+    background-color: darken(#8757df, 5%);
+  }
+}
+
+textarea {
+  border: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  resize: none;
 }
 
 .app {
   display: flex;
-  margin: 50px auto;
+  margin: 45px auto;
   width: 1120px;
   border-radius: 30px;
 }
 
 .content {
   height: fit-content;
-  min-height: 650px;
+  min-height: 700px;
   flex: 1;
   padding: 40px;
   background-color: #f2f2fb;
-  border-radius: 0 30px 30px 0;
+  border-radius: 0 30px 30px 30px;
   box-shadow: 1px 2px 20px #bea8e7;
 }
 
@@ -59,4 +84,15 @@ button {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: 500;
+  color: #353b48;
+
+  &:not(:first-child) {
+    text-align: right;
+  }
 }

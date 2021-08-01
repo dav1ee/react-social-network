@@ -1,0 +1,70 @@
+.dialogues {
+  display: flex;
+  height: 620px;
+  overflow: hidden;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+  }
+
+  &-users {
+    width: 250px;
+    margin-right: 20px;
+    overflow: auto;
+  }
+
+  &-messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1;
+
+    .messages {
+      flex: 1 1;
+      padding: 20px;
+      overflow: auto;
+
+      &-item {
+        width: fit-content;
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        background-color: #8757df;
+        border-radius: 20px;
+        color: #fff;
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      textarea {
+        width: 90%;
+        height: 60px;
+        margin-right: 10px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      button {
+        height: 40px;
+        width: 40px;
+        border-radius: 50px;
+
+        i {
+          margin-left: 0;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

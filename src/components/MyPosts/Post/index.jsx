@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Post.scss';
 
-const Post = ({ text }) => {
+const Post = ({ text, likes, comments }) => {
   return (
     <div className="post inner-block">
       <div className="post__user">
@@ -13,7 +13,17 @@ const Post = ({ text }) => {
         />
         <div className="post__user-name">Freddy Johansson</div>
       </div>
-      <div className="post__text">{text}</div>
+      <div className="post__body">{text}</div>
+      <div className="post__footer">
+        <div className="post__footer-item">
+          <span>{likes}</span>
+          <i className="fas fa-heart" />
+        </div>
+        <div className="post__footer-item">
+          <span>{comments}</span>
+          <i className="fas fa-comments" />
+        </div>
+      </div>
     </div>
   );
 };
