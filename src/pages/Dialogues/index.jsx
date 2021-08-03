@@ -3,10 +3,21 @@ import React from 'react';
 import DialogueItem from '../../components/DialogueItem';
 import MessageItem from '../../components/MessageItem';
 
+import { sendMessageAC, updateMessageTextAC } from '../../store/actions/dialoguesPage';
+
 import './Dialogues.scss';
 
-const Dialogues = ({ dialoguesPage }) => {
-  const { dialoguesData, messagesData } = dialoguesPage;
+const Dialogues = ({ dialoguesPage, dispatch }) => {
+  const { dialoguesData, messagesData, messageText } = dialoguesPage;
+
+  const onSendMessage = (e) => {
+    e.preventDefault();
+    if (!messageText) return;
+
+    dispatch(sendMessageAC());
+  };
+
+  const onUpdateMessageText = (e) => dispatch(updateMessageTextAC(e.target.value));
 
   return (
     <div className="dialogues">
@@ -24,8 +35,11 @@ const Dialogues = ({ dialoguesPage }) => {
             ))}
         </div>
         <form>
-          <textarea placeholder="Type some text..."></textarea>
-          <button>
+          <textarea
+            onChange={onUpdateMessageText}
+            value={messageText}
+            placeholder="Enter your message"></textarea>
+          <button onClick={onSendMessage}>
             <i className="fas fa-plus" />
           </button>
         </form>

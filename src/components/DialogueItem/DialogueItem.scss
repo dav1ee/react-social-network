@@ -2,8 +2,9 @@
   display: flex;
   align-items: center;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(135, 87, 223, 0.15);
+  border: 2px solid transparent;
   cursor: pointer;
   transition: 0.1s ease-in-out;
 
@@ -23,19 +24,11 @@
   }
 
   &.active {
-    background-color: #8757df;
-
-    .dialogues-users__item-name {
-      color: #fff;
-    }
+    box-shadow: 0px 1px 10px #8757df;
   }
 
   &:hover {
-    background-color: #8757df;
-
-    .dialogues-users__item-name {
-      color: #fff;
-    }
+    box-shadow: 0px 1px 10px #8757df;
   }
 
   &:not(:last-child) {
