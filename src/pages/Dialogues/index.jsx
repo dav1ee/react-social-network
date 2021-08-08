@@ -1,51 +1,24 @@
-import React from 'react';
+import { connect } from 'react-redux';
 
-import DialogueItem from '../../components/DialogueItem';
-import MessageItem from '../../components/MessageItem';
+import Dialogues from './Dialogues';
 
 import { sendMessageAC, updateMessageTextAC } from '../../store/actions/dialoguesPage';
 
-import './Dialogues.scss';
-
-const Dialogues = ({ dialoguesPage, dispatch }) => {
-  const { dialoguesData, messagesData, messageText } = dialoguesPage;
-
-  const onSendMessage = (e) => {
-    e.preventDefault();
-    if (!messageText) return;
-
-    dispatch(sendMessageAC());
+const mapStateToProps = (state) => {
+  return {
+    dialoguesData: state.dialoguesPage.dialoguesData,
+    messagesData: state.dialoguesPage.messagesData,
+    messageText: state.dialoguesPage.messageText,
   };
-
-  const onUpdateMessageText = (e) => dispatch(updateMessageTextAC(e.target.value));
-
-  return (
-    <div className="dialogues">
-      <div className="dialogues-users inner-block">
-        {dialoguesData &&
-          dialoguesData.map((item) => (
-            <DialogueItem key={`${item.id}_${item.name}`} id={item.id} name={item.name} />
-          ))}
-      </div>
-      <div className="dialogues-messages">
-        <div className="messages inner-block">
-          {messagesData &&
-            messagesData.map((item) => (
-              <MessageItem key={`${item.id}_${item.message}`} message={item.message} />
-            ))}
-        </div>
-        <form>
-          <textarea
-            onChange={onUpdateMessageText}
-            value={messageText}
-            placeholder="Enter your message"></textarea>
-          <button onClick={onSendMessage}>
-            <i className="fas fa-plus" />
-          </button>
-        </form>
-      </div>
-    </div>
-  );
 };
 
-export default Dialogues;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sendMessage: () => dispatch(sendMessageAC()),
+    updateMessageText: (text) => dispatch(updateMessageTextAC(text)),
+  };
+};
+
+const DialoguesContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogues);
+
+export default DialoguesContainer;

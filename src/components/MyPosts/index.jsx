@@ -1,48 +1,23 @@
-import React from 'react';
+import { connect } from 'react-redux';
 
-import Post from './Post';
+import MyPosts from './MyPosts';
 
 import { createPostAC, updatePostTextAC } from '../../store/actions/profilePage';
 
-import './MyPosts.scss';
-
-const MyPosts = ({ postsData, postText, dispatch }) => {
-  const onCreatePost = (e) => {
-    e.preventDefault();
-    if (!postText) return;
-
-    dispatch(createPostAC());
+const mapStateToProps = (state) => {
+  return {
+    postsData: state.profilePage.postsData,
+    postText: state.profilePage.postText,
   };
-
-  const onUpdatePostText = (e) => dispatch(updatePostTextAC(e.target.value));
-
-  return (
-    <>
-      <div className="title">Create post:</div>
-      <form className="create-post__form inner-block" style={{ padding: 5 }}>
-        <textarea
-          onChange={onUpdatePostText}
-          value={postText}
-          placeholder="Share with your friends"></textarea>
-        <button onClick={onCreatePost}>
-          Create
-          <i className="fas fa-pencil-alt" />
-        </button>
-      </form>
-      <div className="title">My posts:</div>
-      <div className="posts">
-        {postsData &&
-          postsData.map((item) => (
-            <Post
-              key={`${item.id}_${item.text}`}
-              text={item.text}
-              likes={item.likes}
-              comments={item.comments}
-            />
-          ))}
-      </div>
-    </>
-  );
 };
 
-export default MyPosts;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createPost: () => dispatch(createPostAC()),
+    updatePostText: (text) => dispatch(updatePostTextAC(text)),
+  };
+};
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+
+export default MyPostsContainer;

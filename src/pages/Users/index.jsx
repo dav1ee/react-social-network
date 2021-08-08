@@ -1,11 +1,23 @@
-import React from 'react';
+import { connect } from 'react-redux';
 
-const Users = () => {
-  return (
-    <>
-      <h2>Users page</h2>
-    </>
-  );
+import Users from './Users';
+
+import { setUsersAC, followUserAC, unfollowUserAC } from '../../store/actions/usersPage';
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.usersPage.users,
+  };
 };
 
-export default Users;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsers: (users) => dispatch(setUsersAC(users)),
+    followUser: (userId) => dispatch(followUserAC(userId)),
+    unfollowUser: (userId) => dispatch(unfollowUserAC(userId)),
+  };
+};
+
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+
+export default UsersContainer;

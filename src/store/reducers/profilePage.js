@@ -27,7 +27,7 @@ const initialState = {
 
 export const profilePage = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_POST: {
+    case CREATE_POST:
       const newPost = {
         id: Math.floor(Math.random() * 1000),
         text: state.postText,
@@ -35,17 +35,17 @@ export const profilePage = (state = initialState, action) => {
         comments: 0,
       };
 
-      state.postsData.unshift(newPost);
-      state.postText = '';
+      return {
+        ...state,
+        postsData: [newPost, ...state.postsData],
+        postText: '',
+      };
 
-      return state;
-    }
-
-    case UPDATE_POST_TEXT: {
-      state.postText = action.payload;
-
-      return state;
-    }
+    case UPDATE_POST_TEXT:
+      return {
+        ...state,
+        postText: action.payload,
+      };
 
     default:
       return state;

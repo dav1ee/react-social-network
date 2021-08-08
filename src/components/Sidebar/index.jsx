@@ -1,24 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import './Sidebar.scss';
+import Sidebar from './Sidebar';
 
-const Sidebar = ({ data }) => {
-  const { navLinks } = data;
-
-  return (
-    <ul className="sidebar">
-      {navLinks &&
-        navLinks.map((link) => (
-          <li key={`${link.id}_${link.name}`}>
-            <NavLink to={link.path}>
-              <i className={link.icon} />
-              {link.name}
-            </NavLink>
-          </li>
-        ))}
-    </ul>
-  );
+const mapStateToProps = (state) => {
+  return {
+    navLinks: state.sidebar.navLinks,
+  };
 };
 
-export default Sidebar;
+const SidebarContainer = connect(mapStateToProps)(Sidebar);
+
+export default SidebarContainer;

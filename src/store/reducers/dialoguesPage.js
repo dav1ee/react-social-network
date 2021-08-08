@@ -24,23 +24,23 @@ const initialState = {
 
 export const dialoguesPage = (state = initialState, action) => {
   switch (action.type) {
-    case SEND_MESSAGE: {
+    case SEND_MESSAGE:
       const newMessage = {
         id: Math.floor(Math.random() * 1000),
         message: state.messageText,
       };
 
-      state.messagesData.push(newMessage);
-      state.messageText = '';
+      return {
+        ...state,
+        messagesData: [...state.messagesData, newMessage],
+        messageText: '',
+      };
 
-      return state;
-    }
-
-    case UPDATE_MESSAGE_TEXT: {
-      state.messageText = action.payload;
-
-      return state;
-    }
+    case UPDATE_MESSAGE_TEXT:
+      return {
+        ...state,
+        messageText: action.payload,
+      };
 
     default:
       return state;

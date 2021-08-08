@@ -1,0 +1,47 @@
+.users-page {
+  .users-list {
+    width: 450px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+
+      &-avatar {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+
+        img {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+        }
+      }
+
+      &-info {
+        flex: 1 1;
+
+        &__name {
+          font-size: 20px;
+          font-weight: 500;
+        }
+
+        &__status {
+          margin-top: 10px;
+          font-size: 14px;
+          font-style: italic;
+        }
+      }
+
+      button {
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

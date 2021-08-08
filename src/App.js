@@ -1,27 +1,27 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Sidebar from './components/Sidebar';
-import { Profile, Dialogues, NewsFeed, Users, Music, Settings } from './pages';
+import SidebarContainer from './components/Sidebar';
+import { Profile, DialoguesContainer, NewsFeed, UsersContainer, Music, Settings } from './pages';
 
-const App = ({ state, dispatch }) => {
+const App = () => {
   return (
     <div className="app">
-      <Sidebar data={state.sidebar} />
+      <SidebarContainer />
       <div className="content">
-        <Redirect to="/profile" />
+        <Redirect to="/users" />
         <Switch>
           <Route path="/profile">
-            <Profile profilePage={state.profilePage} dispatch={dispatch} />
+            <Profile />
           </Route>
           <Route path="/dialogues">
-            <Dialogues dialoguesPage={state.dialoguesPage} dispatch={dispatch} />
+            <DialoguesContainer />
           </Route>
           <Route path="/feed">
             <NewsFeed />
           </Route>
           <Route path="/users">
-            <Users />
+            <UsersContainer />
           </Route>
           <Route path="/music">
             <Music />

@@ -1,18 +1,14 @@
 import React from 'react';
 
 import ProfileInfo from '../../components/ProfileInfo';
-import MyPosts from '../../components/MyPosts';
+import MyPostsContainer from '../../components/MyPosts';
 
-const Profile = ({ profilePage, dispatch }) => {
+const Profile = () => {
   return (
     <>
       <div className="title">Freddy Johansson</div>
       <ProfileInfo />
-      <MyPosts
-        postsData={profilePage.postsData}
-        postText={profilePage.postText}
-        dispatch={dispatch}
-      />
+      <MyPostsContainer />
     </>
   );
 };
