@@ -1,4 +1,4 @@
-export { default as Profile } from './Profile';
+export { default as ProfileContainer } from './Profile';
 export { default as DialoguesContainer } from './Dialogues';
 export { default as NewsFeed } from './NewsFeed';
 export { default as UsersContainer } from './Users';

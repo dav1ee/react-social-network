@@ -1,0 +1,28 @@
+.pagination {
+  text-align: center;
+
+  &__item {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: 3px solid #8757df;
+    border-radius: 3px;
+    color: #353b48;
+    font-size: 13px;
+    font-weight: 700;
+
+    &.active {
+      background-color: #8757df;
+      color: #fff;
+    }
+
+    &:hover {
+      background-color: #8757df;
+      color: #fff;
+    }
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}

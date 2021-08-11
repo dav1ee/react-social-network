@@ -1,36 +1,40 @@
 import React from 'react';
 
+import userIcon from '../../assets/images/user-icon.jpg';
 import './ProfileInfo.scss';
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ profile }) => {
   return (
     <div className="profile-main">
       <div className="profile-main__avatar inner-block">
-        <img
-          src="https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg"
-          alt="User Avatar"
-        />
+        <img src={profile.photos.large ? profile.photos.large : userIcon} alt="User Avatar" />
       </div>
       <div className="profile-main__info inner-block">
         <div className="profile-main__info-row">
-          <div className="label">Country:</div>
-          <div className="labeled">Sweden</div>
+          <div className="label">Name:</div>
+          <div className="labeled">{profile.fullName}</div>
         </div>
         <div className="profile-main__info-row">
-          <div className="label">City:</div>
-          <div className="labeled">Stockholm</div>
+          <div className="label">Status:</div>
+          <div className="labeled">{profile.aboutMe ? profile.aboutMe : '-'}</div>
         </div>
         <div className="profile-main__info-row">
-          <div className="label">Age:</div>
-          <div className="labeled">27</div>
+          <div className="label">Instagram:</div>
+          <div className={`labeled ${profile.contacts.instagram ? 'labeled-link' : ''}`}>
+            {profile.contacts.instagram ? profile.contacts.instagram : '-'}
+          </div>
         </div>
         <div className="profile-main__info-row">
-          <div className="label">Friends:</div>
-          <div className="labeled">100</div>
+          <div className="label">VK:</div>
+          <div className={`labeled ${profile.contacts.vk ? 'labeled-link' : ''}`}>
+            {profile.contacts.vk ? profile.contacts.vk : '-'}
+          </div>
         </div>
         <div className="profile-main__info-row">
-          <div className="label">Subscribers:</div>
-          <div className="labeled">500</div>
+          <div className="label">GitHub:</div>
+          <div className={`labeled ${profile.contacts.github ? 'labeled-link' : ''}`}>
+            {profile.contacts.github ? profile.contacts.github : '-'}
+          </div>
         </div>
       </div>
     </div>

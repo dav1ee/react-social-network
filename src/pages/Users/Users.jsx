@@ -1,51 +1,50 @@
 import React from 'react';
-import axios from 'axios';
+
+import UserItem from '../../components/UserItem';
+import Pagination from '../../components/Pagination';
+import Preloader from '../../components/Preloader';
 
 import './Users.scss';
 
-class Users extends React.Component {
-  componentDidMount() {
-    axios
-      .get('https://social-network.samuraijs.com/api/1.0/users')
-      .then(({ data }) => this.props.setUsers(data.items));
+const Users = ({
+  users,
+  pageSize,
+  usersCount,
+  currentPage,
+  isLoading,
+  followUser,
+  unfollowUser,
+  onSetCurrentPage,
+}) => {
+  let pages = [];
+  const pagesCount = Math.ceil(usersCount / pageSize);
+
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
   }
 
-  render() {
-    return (
-      <div className="users-page">
+  return (
+    <div className="users-page">
+      <div className="users-page__inner">
         <div className="users-list">
-          {this.props.users &&
-            this.props.users.map((user) => (
-              <div key={`${user.id}_${user.name}`} className="users-list__item inner-block">
-                <div className="users-list__item-avatar">
-                  <img
-                    src={
-                      user.photos.small
-                        ? user.photos.small
-                        : 'https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg'
-                    }
-                    alt="User Avatar"
-                  />
-                </div>
-                <div className="users-list__item-info">
-                  <div className="users-list__item-info__name">{user.name}</div>
-                  {user.status ? (
-                    <div className="users-list__item-info__status">{user.status}</div>
-                  ) : (
-                    ''
-                  )}
-                </div>
-                {user.followed ? (
-                  <button onClick={() => this.props.unfollowUser(user.id)}>Unfollow</button>
-                ) : (
-                  <button onClick={() => this.props.followUser(user.id)}>Follow</button>
-                )}
-              </div>
-            ))}
+          {isLoading ? (
+            <Preloader className="users-list__preloader" />
+          ) : (
+            users &&
+            users.map((user) => (
+              <UserItem
+                key={`${user.id}_${user.name}`}
+                user={user}
+                followUser={followUser}
+                unfollowUser={unfollowUser}
+              />
+            ))
+          )}
         </div>
       </div>
-    );
-  }
-}
+      <Pagination pages={pages} currentPage={currentPage} onSetCurrentPage={onSetCurrentPage} />
+    </div>
+  );
+};
 
 export default Users;

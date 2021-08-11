@@ -1,7 +1,9 @@
 export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
+export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 const initialState = {
+  profile: null,
   postsData: [
     {
       id: 1,
@@ -45,6 +47,12 @@ export const profilePage = (state = initialState, action) => {
       return {
         ...state,
         postText: action.payload,
+      };
+
+    case SET_USER_PROFILE:
+      return {
+        ...state,
+        profile: action.payload,
       };
 
     default:

@@ -1,18 +1,24 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import SidebarContainer from './components/Sidebar';
-import { Profile, DialoguesContainer, NewsFeed, UsersContainer, Music, Settings } from './pages';
+import {
+  ProfileContainer,
+  DialoguesContainer,
+  NewsFeed,
+  UsersContainer,
+  Music,
+  Settings,
+} from './pages';
 
 const App = () => {
   return (
     <div className="app">
       <SidebarContainer />
       <div className="content">
-        <Redirect to="/users" />
         <Switch>
-          <Route path="/profile">
-            <Profile />
+          <Route path="/profile/:userId?">
+            <ProfileContainer />
           </Route>
           <Route path="/dialogues">
             <DialoguesContainer />

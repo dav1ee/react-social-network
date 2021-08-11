@@ -1,16 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-import ProfileInfo from '../../components/ProfileInfo';
-import MyPostsContainer from '../../components/MyPosts';
+import Profile from './Profile';
 
-const Profile = () => {
-  return (
-    <>
-      <div className="title">Freddy Johansson</div>
-      <ProfileInfo />
-      <MyPostsContainer />
-    </>
-  );
-};
+import { setUserProfile } from '../../store/actions/profilePage';
 
-export default Profile;
+class ProfileContainer extends React.Component {
+  componentDidMount() {
+    const userId = this.props.match.params.userId ? this.props.match.params.userId : 2;
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+      .then(({ data }) => this.props.setUserProfile(data));
+  }
+
+  render() {
+    return (
+      <div style={{ position: 'relative' }}>
+        <Profile profile={this.props.profile} />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  profile: state.profilePage.profile,
+});
+
+export default connect(mapStateToProps, { setUserProfile })(withRouter(ProfileContainer));

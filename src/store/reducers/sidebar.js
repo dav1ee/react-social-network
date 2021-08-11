@@ -2,7 +2,7 @@ const initialState = {
   navLinks: [
     {
       id: 1,
-      name: 'My profile',
+      name: 'Profile',
       path: '/profile',
       icon: 'fas fa-user',
     },

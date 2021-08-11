@@ -4,7 +4,7 @@ import Post from './Post';
 
 import './MyPosts.scss';
 
-const MyPosts = ({ postsData, postText, createPost, updatePostText }) => {
+const MyPosts = ({ fullName, photo, postsData, postText, createPost, updatePostText }) => {
   const onCreatePost = (e) => {
     e.preventDefault();
     if (!postText) return;
@@ -33,6 +33,8 @@ const MyPosts = ({ postsData, postText, createPost, updatePostText }) => {
           postsData.map((item) => (
             <Post
               key={`${item.id}_${item.text}`}
+              fullName={fullName}
+              photo={photo}
               text={item.text}
               likes={item.likes}
               comments={item.comments}
