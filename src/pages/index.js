@@ -4,3 +4,4 @@ export { default as NewsFeed } from './NewsFeed';
 export { default as UsersContainer } from './Users';
 export { default as Music } from './Music';
 export { default as Settings } from './SettingsPage';
+export { default as Login } from './Login';

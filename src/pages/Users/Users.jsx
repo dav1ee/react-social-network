@@ -12,8 +12,9 @@ const Users = ({
   usersCount,
   currentPage,
   isLoading,
-  followUser,
-  unfollowUser,
+  followButtonDisabled,
+  follow,
+  unfollow,
   onSetCurrentPage,
 }) => {
   let pages = [];
@@ -35,8 +36,9 @@ const Users = ({
               <UserItem
                 key={`${user.id}_${user.name}`}
                 user={user}
-                followUser={followUser}
-                unfollowUser={unfollowUser}
+                followButtonDisabled={followButtonDisabled}
+                follow={follow}
+                unfollow={unfollow}
               />
             ))
           )}

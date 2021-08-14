@@ -1,43 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Users from './Users';
 
-import {
-  setUsers,
-  followUser,
-  unfollowUser,
-  setCurrentPage,
-  setUsersCount,
-  setLoading,
-} from '../../store/actions/usersPage';
+import { fetchUsers, follow, unfollow } from '../../store/actions/usersPage';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setLoading(true);
-
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-      )
-      .then(({ data }) => {
-        this.props.setUsers(data.items);
-        this.props.setUsersCount(data.totalCount);
-      })
-      .finally(() => this.props.setLoading(false));
+    this.props.fetchUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onSetCurrentPage = (pageNum) => {
-    this.props.setLoading(true);
-    this.props.setCurrentPage(pageNum);
-
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`,
-      )
-      .then(({ data }) => this.props.setUsers(data.items))
-      .finally(() => this.props.setLoading(false));
+    this.props.fetchUsers(pageNum, this.props.pageSize);
   };
 
   render() {
@@ -48,8 +22,9 @@ class UsersContainer extends React.Component {
         usersCount={this.props.usersCount}
         currentPage={this.props.currentPage}
         isLoading={this.props.isLoading}
-        followUser={this.props.followUser}
-        unfollowUser={this.props.unfollowUser}
+        followButtonDisabled={this.props.followButtonDisabled}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
         onSetCurrentPage={this.onSetCurrentPage}
       />
     );
@@ -62,13 +37,11 @@ const mapStateToProps = (state) => ({
   usersCount: state.usersPage.usersCount,
   currentPage: state.usersPage.currentPage,
   isLoading: state.usersPage.isLoading,
+  followButtonDisabled: state.usersPage.followButtonDisabled,
 });
 
 export default connect(mapStateToProps, {
-  setUsers,
-  followUser,
-  unfollowUser,
-  setCurrentPage,
-  setUsersCount,
-  setLoading,
+  fetchUsers,
+  follow,
+  unfollow,
 })(UsersContainer);

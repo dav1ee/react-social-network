@@ -9,6 +9,7 @@ import {
   UsersContainer,
   Music,
   Settings,
+  Login,
 } from './pages';
 
 const App = () => {
@@ -34,6 +35,9 @@ const App = () => {
           </Route>
           <Route path="/settings">
             <Settings />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
         </Switch>
       </div>

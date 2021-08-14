@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   dialoguesData: state.dialoguesPage.dialoguesData,
   messagesData: state.dialoguesPage.messagesData,
   messageText: state.dialoguesPage.messageText,
+  isAuth: state.auth.isAuth,
 });
 
 const DialoguesContainer = connect(mapStateToProps, { sendMessage, updateMessageText })(Dialogues);

@@ -1,23 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Sidebar from './Sidebar';
 
-import { setAuthUserData } from '../../store/actions/auth';
+import { fetchAuthUserData } from '../../store/actions/auth';
 
 class SidebarContainer extends React.Component {
   componentDidMount() {
-    axios
-      .get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-        withCredentials: true,
-      })
-      .then(({ data }) => {
-        if (data.resultCode === 0) {
-          const { id, email, login } = data.data;
-          this.props.setAuthUserData(id, email, login);
-        }
-      });
+    this.props.fetchAuthUserData();
   }
 
   render() {
@@ -33,4 +23,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login,
 });
 
-export default connect(mapStateToProps, { setAuthUserData })(SidebarContainer);
+export default connect(mapStateToProps, { fetchAuthUserData })(SidebarContainer);

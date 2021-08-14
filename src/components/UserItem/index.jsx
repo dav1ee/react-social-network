@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import userIcon from '../../assets/images/user-icon.jpg';
 import './UserItem.scss';
 
-const UserItem = ({ user, followUser, unfollowUser }) => {
+const UserItem = ({ user, followButtonDisabled, follow, unfollow }) => {
   return (
     <div className="users-list__item inner-block">
       <div className="users-list__item-avatar">
@@ -16,9 +16,17 @@ const UserItem = ({ user, followUser, unfollowUser }) => {
       </div>
       <div className="users-list__item-right">
         {user.followed ? (
-          <button onClick={() => unfollowUser(user.id)}>Unfollow</button>
+          <button
+            onClick={() => unfollow(user.id)}
+            disabled={followButtonDisabled.some((id) => id === user.id)}>
+            Unfollow
+          </button>
         ) : (
-          <button onClick={() => followUser(user.id)}>Follow</button>
+          <button
+            onClick={() => follow(user.id)}
+            disabled={followButtonDisabled.some((id) => id === user.id)}>
+            Follow
+          </button>
         )}
         <Link to={`/profile/${user.id}`}>View profile</Link>
       </div>
