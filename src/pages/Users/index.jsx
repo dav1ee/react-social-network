@@ -1,6 +1,8 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import Users from './Users';
 
 import { fetchUsers, follow, unfollow } from '../../store/actions/usersPage';
@@ -40,8 +42,11 @@ const mapStateToProps = (state) => ({
   followButtonDisabled: state.usersPage.followButtonDisabled,
 });
 
-export default connect(mapStateToProps, {
-  fetchUsers,
-  follow,
-  unfollow,
-})(UsersContainer);
+export default compose(
+  connect(mapStateToProps, {
+    fetchUsers,
+    follow,
+    unfollow,
+  }),
+  withAuthRedirect,
+)(UsersContainer);

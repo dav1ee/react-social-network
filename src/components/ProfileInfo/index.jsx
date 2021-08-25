@@ -1,9 +1,11 @@
 import React from 'react';
 
+import ProfileStatus from '../ProfileStatus';
+
 import userIcon from '../../assets/images/user-icon.jpg';
 import './ProfileInfo.scss';
 
-const ProfileInfo = ({ profile }) => {
+const ProfileInfo = ({ profile, status, updateStatus }) => {
   return (
     <div className="profile-main">
       <div className="profile-main__avatar inner-block">
@@ -14,10 +16,7 @@ const ProfileInfo = ({ profile }) => {
           <div className="label">Name:</div>
           <div className="labeled">{profile.fullName}</div>
         </div>
-        <div className="profile-main__info-row">
-          <div className="label">Status:</div>
-          <div className="labeled">{profile.aboutMe ? profile.aboutMe : '-'}</div>
-        </div>
+        <ProfileStatus status={status} updateStatus={updateStatus} />
         <div className="profile-main__info-row">
           <div className="label">Instagram:</div>
           <div className={`labeled ${profile.contacts.instagram ? 'labeled-link' : ''}`}>

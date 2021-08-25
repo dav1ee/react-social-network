@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import DialogueItem from '../../components/DialogueItem';
 import MessageItem from '../../components/MessageItem';
@@ -12,7 +11,6 @@ const Dialogues = ({
   messageText,
   sendMessage,
   updateMessageText,
-  isAuth,
 }) => {
   const onSendMessage = (e) => {
     e.preventDefault();
@@ -22,8 +20,6 @@ const Dialogues = ({
   };
 
   const onUpdateMessageText = (e) => updateMessageText(e.target.value);
-
-  if (!isAuth) return <Redirect to="/login" />;
 
   return (
     <div className="dialogues">
