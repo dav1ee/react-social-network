@@ -1,5 +1,4 @@
 export const SEND_MESSAGE = 'SEND_MESSAGE';
-export const UPDATE_MESSAGE_TEXT = 'UPDATE_MESSAGE_TEXT';
 
 const initialState = {
   dialoguesData: [
@@ -19,7 +18,6 @@ const initialState = {
     },
     { id: 3, message: 'Repellendus.' },
   ],
-  messageText: '',
 };
 
 export const dialoguesPage = (state = initialState, action) => {
@@ -27,19 +25,12 @@ export const dialoguesPage = (state = initialState, action) => {
     case SEND_MESSAGE:
       const newMessage = {
         id: Math.floor(Math.random() * 1000),
-        message: state.messageText,
+        message: action.payload,
       };
 
       return {
         ...state,
         messagesData: [...state.messagesData, newMessage],
-        messageText: '',
-      };
-
-    case UPDATE_MESSAGE_TEXT:
-      return {
-        ...state,
-        messageText: action.payload,
       };
 
     default:

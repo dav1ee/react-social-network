@@ -1,32 +1,17 @@
 import React from 'react';
 
 import Post from './Post';
+import AddPostForm from './AddPostForm';
 
 import './MyPosts.scss';
 
-const MyPosts = ({ fullName, photo, postsData, postText, createPost, updatePostText }) => {
-  const onCreatePost = (e) => {
-    e.preventDefault();
-    if (!postText) return;
-
-    createPost();
-  };
-
-  const onUpdatePostText = (e) => updatePostText(e.target.value);
+const MyPosts = ({ fullName, photo, postsData, createPost }) => {
+  const onCreatePost = ({ postText }) => createPost(postText);
 
   return (
     <>
       <div className="title">Create post:</div>
-      <form className="create-post__form inner-block" style={{ padding: 5 }}>
-        <textarea
-          onChange={onUpdatePostText}
-          value={postText}
-          placeholder="Share with your friends"></textarea>
-        <button onClick={onCreatePost}>
-          Create
-          <i className="fas fa-pencil-alt" />
-        </button>
-      </form>
+      <AddPostForm onSubmit={onCreatePost} />
       <div className="title">My posts:</div>
       <div className="posts">
         {postsData &&

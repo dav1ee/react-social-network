@@ -18,16 +18,16 @@
     margin-bottom: 30px;
     text-align: center;
 
-    a {
-      font-weight: 500;
-      text-transform: uppercase;
+    &__login {
+      margin-bottom: 60px;
 
-      i {
-        margin-left: 15px;
-      }
+      a {
+        font-weight: 500;
+        text-transform: uppercase;
 
-      &:hover {
-        box-shadow: 0px 1px 10px #bea8e7;
+        &:hover {
+          box-shadow: 0px 1px 10px #bea8e7;
+        }
       }
     }
 
@@ -39,9 +39,20 @@
       }
 
       &-login {
-        margin-top: 10px;
+        margin-top: 5px;
         font-size: 18px;
         color: #fff;
+      }
+
+      &-logout {
+        margin-top: 10px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 14px;
+
+        i {
+          margin-left: 0;
+        }
       }
     }
   }
@@ -79,7 +90,7 @@
     }
 
     &:last-child {
-      margin-top: 70px;
+      margin-top: 50px;
     }
   }
 }

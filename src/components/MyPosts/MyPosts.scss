@@ -3,9 +3,19 @@
   align-items: center;
   margin-bottom: 40px;
 
-  textarea {
+  .create-post__form-textarea {
+    position: relative;
     width: 80%;
     margin-right: 20px;
+
+    textarea {
+      width: 100%;
+    }
+
+    small {
+      top: 75px;
+      left: 15px;
+    }
   }
 
   button {

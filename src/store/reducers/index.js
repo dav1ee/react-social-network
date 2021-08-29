@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 import { sidebar } from './sidebar';
 import { profilePage } from './profilePage';
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   dialoguesPage,
   usersPage,
   auth,
+  form: formReducer,
 });

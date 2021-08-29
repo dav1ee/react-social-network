@@ -65,6 +65,12 @@ textarea {
   resize: none;
 }
 
+small {
+  position: absolute;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
 .app {
   display: flex;
   margin: 45px auto;

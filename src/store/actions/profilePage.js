@@ -1,9 +1,4 @@
-import {
-  CREATE_POST,
-  UPDATE_POST_TEXT,
-  SET_USER_PROFILE,
-  SET_USER_STATUS,
-} from '../reducers/profilePage';
+import { CREATE_POST, SET_USER_PROFILE, SET_USER_STATUS } from '../reducers/profilePage';
 
 import { profileAPI } from '../../api';
 
@@ -23,13 +18,9 @@ export const updateUserStatus = (text) => (dispatch) => {
   });
 };
 
-export const createPost = () => ({
+export const createPost = (postText) => ({
   type: CREATE_POST,
-});
-
-export const updatePostText = (text) => ({
-  type: UPDATE_POST_TEXT,
-  payload: text,
+  payload: postText,
 });
 
 export const setUserProfile = (profile) => ({

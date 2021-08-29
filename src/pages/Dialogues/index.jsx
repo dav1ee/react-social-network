@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import Dialogues from './Dialogues';
 
-import { sendMessage, updateMessageText } from '../../store/actions/dialoguesPage';
+import { sendMessage } from '../../store/actions/dialoguesPage';
 
 const mapStateToProps = (state) => ({
   dialoguesData: state.dialoguesPage.dialoguesData,
   messagesData: state.dialoguesPage.messagesData,
-  messageText: state.dialoguesPage.messageText,
 });
 
-export default compose(
-  connect(mapStateToProps, { sendMessage, updateMessageText }),
-  withAuthRedirect,
-)(Dialogues);
+const mapDispatchToProps = (dispatch) => ({
+  sendMessage: (messageText) => dispatch(sendMessage(messageText)),
+});
+
+export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogues);

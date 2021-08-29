@@ -2,24 +2,12 @@ import React from 'react';
 
 import DialogueItem from '../../components/DialogueItem';
 import MessageItem from '../../components/MessageItem';
+import AddMessageForm from '../../components/AddMessageForm';
 
 import './Dialogues.scss';
 
-const Dialogues = ({
-  dialoguesData,
-  messagesData,
-  messageText,
-  sendMessage,
-  updateMessageText,
-}) => {
-  const onSendMessage = (e) => {
-    e.preventDefault();
-    if (!messageText) return;
-
-    sendMessage();
-  };
-
-  const onUpdateMessageText = (e) => updateMessageText(e.target.value);
+const Dialogues = ({ dialoguesData, messagesData, sendMessage }) => {
+  const onSendMessage = ({ messageText }) => sendMessage(messageText);
 
   return (
     <div className="dialogues">
@@ -36,15 +24,7 @@ const Dialogues = ({
               <MessageItem key={`${item.id}_${item.message}`} message={item.message} />
             ))}
         </div>
-        <form>
-          <textarea
-            onChange={onUpdateMessageText}
-            value={messageText}
-            placeholder="Enter your message"></textarea>
-          <button onClick={onSendMessage}>
-            <i className="fas fa-plus" />
-          </button>
-        </form>
+        <AddMessageForm onSubmit={onSendMessage} />
       </div>
     </div>
   );

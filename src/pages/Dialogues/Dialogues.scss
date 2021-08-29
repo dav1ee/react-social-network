@@ -46,12 +46,21 @@
       justify-content: space-between;
       margin-top: 20px;
 
-      textarea {
+      .messages-form__textarea {
         width: 90%;
         height: 60px;
         margin-right: 10px;
-        border-radius: 10px;
-        box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.05);
+
+        textarea {
+          width: 100%;
+          border-radius: 10px;
+          box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        small {
+          bottom: 65px;
+          right: 470px;
+        }
       }
 
       button {

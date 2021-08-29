@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import userIcon from '../../assets/images/user-icon.jpg';
 import './Sidebar.scss';
 
-const Sidebar = ({ navLinks, isAuth, login }) => {
+const Sidebar = ({ navLinks, isAuth, login, logout }) => {
   return (
     <div className="sidebar">
       <div className="auth-block">
@@ -12,12 +12,14 @@ const Sidebar = ({ navLinks, isAuth, login }) => {
           <div className="auth-block__user">
             <img className="auth-block__user-avatar" src={userIcon} alt="User Icon" />
             <div className="auth-block__user-login">{login}</div>
+            <button className="auth-block__user-logout" onClick={logout}>
+              <i className="fas fa-sign-in-alt" />
+            </button>
           </div>
         ) : (
-          <NavLink to="/login">
-            Log In
-            <i className="fas fa-sign-in-alt" />
-          </NavLink>
+          <div className="auth-block__login">
+            <NavLink to="/login">Log In</NavLink>
+          </div>
         )}
       </div>
       <ul>

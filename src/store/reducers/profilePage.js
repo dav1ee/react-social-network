@@ -1,5 +1,4 @@
 export const CREATE_POST = 'CREATE_POST';
-export const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_USER_STATUS = 'SET_USER_STATUS';
 
@@ -26,7 +25,6 @@ const initialState = {
       comments: 12,
     },
   ],
-  postText: '',
 };
 
 export const profilePage = (state = initialState, action) => {
@@ -34,7 +32,7 @@ export const profilePage = (state = initialState, action) => {
     case CREATE_POST:
       const newPost = {
         id: Math.floor(Math.random() * 1000),
-        text: state.postText,
+        text: action.payload,
         likes: 0,
         comments: 0,
       };
@@ -42,13 +40,6 @@ export const profilePage = (state = initialState, action) => {
       return {
         ...state,
         postsData: [newPost, ...state.postsData],
-        postText: '',
-      };
-
-    case UPDATE_POST_TEXT:
-      return {
-        ...state,
-        postText: action.payload,
       };
 
     case SET_USER_PROFILE:

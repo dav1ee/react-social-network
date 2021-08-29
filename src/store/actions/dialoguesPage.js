@@ -1,10 +1,6 @@
-import { SEND_MESSAGE, UPDATE_MESSAGE_TEXT } from '../reducers/dialoguesPage';
+import { SEND_MESSAGE } from '../reducers/dialoguesPage';
 
-export const sendMessage = () => ({
+export const sendMessage = (messageText) => ({
   type: SEND_MESSAGE,
-});
-
-export const updateMessageText = (text) => ({
-  type: UPDATE_MESSAGE_TEXT,
-  payload: text,
+  payload: messageText,
 });

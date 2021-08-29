@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar';
 
-import { fetchAuthUserData } from '../../store/actions/auth';
+import { fetchAuthUserData, logout } from '../../store/actions/auth';
 
 class SidebarContainer extends React.Component {
   componentDidMount() {
@@ -12,7 +12,12 @@ class SidebarContainer extends React.Component {
 
   render() {
     return (
-      <Sidebar navLinks={this.props.navLinks} isAuth={this.props.isAuth} login={this.props.login} />
+      <Sidebar
+        navLinks={this.props.navLinks}
+        isAuth={this.props.isAuth}
+        login={this.props.login}
+        logout={this.props.logout}
+      />
     );
   }
 }
@@ -23,4 +28,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login,
 });
 
-export default connect(mapStateToProps, { fetchAuthUserData })(SidebarContainer);
+export default connect(mapStateToProps, { fetchAuthUserData, logout })(SidebarContainer);

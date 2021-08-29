@@ -13,7 +13,6 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        isAuth: true,
       };
 
     default:
