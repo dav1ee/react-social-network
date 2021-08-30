@@ -6,6 +6,7 @@ import { profilePage } from './profilePage';
 import { dialoguesPage } from './dialoguesPage';
 import { usersPage } from './usersPage';
 import { auth } from './auth';
+import { app } from './app';
 
 export const rootReducer = combineReducers({
   sidebar,
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
   dialoguesPage,
   usersPage,
   auth,
+  app,
   form: formReducer,
 });

@@ -2,7 +2,6 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import Users from './Users';
 
 import { fetchUsers, follow, unfollow } from '../../store/actions/usersPage';
@@ -48,5 +47,4 @@ export default compose(
     follow,
     unfollow,
   }),
-  withAuthRedirect,
 )(UsersContainer);

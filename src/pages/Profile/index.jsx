@@ -3,7 +3,6 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import Profile from './Profile';
 
 import {
@@ -14,9 +13,14 @@ import {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    const userId = this.props.match.params.userId
-      ? this.props.match.params.userId
-      : this.props.authorizedUserId;
+    let userId = this.props.match.params.userId;
+    if (!userId) {
+      userId = this.props.authorizedUserId;
+      if (!userId) {
+        this.props.history.push('/login');
+      }
+    }
+
     this.props.fetchUserProfile(userId);
     this.props.fetchUserStatus(userId);
   }
@@ -44,5 +48,4 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps, { fetchUserProfile, fetchUserStatus, updateUserStatus }),
   withRouter,
-  withAuthRedirect,
 )(ProfileContainer);

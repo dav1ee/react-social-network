@@ -3,13 +3,9 @@ import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar';
 
-import { fetchAuthUserData, logout } from '../../store/actions/auth';
+import { logout } from '../../store/actions/auth';
 
 class SidebarContainer extends React.Component {
-  componentDidMount() {
-    this.props.fetchAuthUserData();
-  }
-
   render() {
     return (
       <Sidebar
@@ -28,4 +24,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login,
 });
 
-export default connect(mapStateToProps, { fetchAuthUserData, logout })(SidebarContainer);
+export default connect(mapStateToProps, { logout })(SidebarContainer);

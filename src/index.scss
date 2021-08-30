@@ -72,10 +72,18 @@ small {
 }
 
 .app {
+  position: relative;
   display: flex;
   margin: 45px auto;
   width: 1120px;
   border-radius: 30px;
+
+  &-preloader {
+    position: absolute;
+    top: 40%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .content {
