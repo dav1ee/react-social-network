@@ -5,14 +5,24 @@ import { connect } from 'react-redux';
 import Users from './Users';
 
 import { fetchUsers, follow, unfollow } from '../../store/actions/usersPage';
+import {
+  getUsers,
+  getPageSize,
+  getUsersCount,
+  getCurrentPage,
+  getIsLoading,
+  getFollowButtonDisabled,
+} from '../../store/selectors/users';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.fetchUsers(this.props.currentPage, this.props.pageSize);
+    const { fetchUsers, currentPage, pageSize } = this.props;
+    fetchUsers(currentPage, pageSize);
   }
 
   onSetCurrentPage = (pageNum) => {
-    this.props.fetchUsers(pageNum, this.props.pageSize);
+    const { fetchUsers, pageSize } = this.props;
+    fetchUsers(pageNum, pageSize);
   };
 
   render() {
@@ -33,12 +43,12 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.usersPage.users,
-  pageSize: state.usersPage.pageSize,
-  usersCount: state.usersPage.usersCount,
-  currentPage: state.usersPage.currentPage,
-  isLoading: state.usersPage.isLoading,
-  followButtonDisabled: state.usersPage.followButtonDisabled,
+  users: getUsers(state),
+  pageSize: getPageSize(state),
+  usersCount: getUsersCount(state),
+  currentPage: getCurrentPage(state),
+  isLoading: getIsLoading(state),
+  followButtonDisabled: getFollowButtonDisabled(state),
 });
 
 export default compose(

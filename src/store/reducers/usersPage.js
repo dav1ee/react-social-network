@@ -1,3 +1,5 @@
+import { updateObjectInArray } from '../../utils/objectHelpers';
+
 export const SET_USERS = 'SET_USERS';
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
@@ -26,17 +28,13 @@ export const usersPage = (state = initialState, action) => {
     case FOLLOW_USER:
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload ? { ...user, followed: true } : user,
-        ),
+        users: updateObjectInArray(state.users, action.payload, 'id', { followed: true }),
       };
 
     case UNFOLLOW_USER:
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload ? { ...user, followed: false } : user,
-        ),
+        users: updateObjectInArray(state.users, action.payload, 'id', { followed: false }),
       };
 
     case SET_CURRENT_PAGE:
@@ -48,7 +46,7 @@ export const usersPage = (state = initialState, action) => {
     case SET_USERS_COUNT:
       return {
         ...state,
-        usersCount: action.payload / 350,
+        usersCount: action.payload,
       };
 
     case SET_LOADING:

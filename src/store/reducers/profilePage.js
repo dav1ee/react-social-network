@@ -1,6 +1,7 @@
 export const CREATE_POST = 'CREATE_POST';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_USER_STATUS = 'SET_USER_STATUS';
+export const DELETE_POST = 'DELETE_POST';
 
 const initialState = {
   profile: null,
@@ -52,6 +53,12 @@ export const profilePage = (state = initialState, action) => {
       return {
         ...state,
         status: action.payload,
+      };
+
+    case DELETE_POST:
+      return {
+        ...state,
+        postsData: state.postsData.filter((post) => post.id !== action.payload),
       };
 
     default:

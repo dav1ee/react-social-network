@@ -23,30 +23,24 @@ export const fetchUsers = (currentPage, pageSize) => (dispatch) => {
     .finally(() => dispatch(setLoading(false)));
 };
 
-export const follow = (userId) => (dispatch) => {
+const followUnfollowFlow = (dispatch, apiMethod, actionCreator, userId) => {
   dispatch(setFollowButtonDisabled(true, userId));
 
-  followAPI
-    .followUser(userId)
+  apiMethod(userId)
     .then((data) => {
       if (data.resultCode === 0) {
-        dispatch(followUser(userId));
+        dispatch(actionCreator(userId));
       }
     })
     .finally(() => dispatch(setFollowButtonDisabled(false, userId)));
 };
 
-export const unfollow = (userId) => (dispatch) => {
-  dispatch(setFollowButtonDisabled(true, userId));
+export const follow = (userId) => (dispatch) => {
+  followUnfollowFlow(dispatch, followAPI.followUser.bind(followAPI), followUser, userId);
+};
 
-  followAPI
-    .unfollowUser(userId)
-    .then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unfollowUser(userId));
-      }
-    })
-    .finally(() => dispatch(setFollowButtonDisabled(false, userId)));
+export const unfollow = (userId) => (dispatch) => {
+  followUnfollowFlow(dispatch, followAPI.unfollowUser.bind(followAPI), unfollowUser, userId);
 };
 
 export const setUsers = (users) => ({

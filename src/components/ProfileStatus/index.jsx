@@ -1,59 +1,42 @@
 import React from 'react';
 
-class ProfileStatus extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps.status !== this.props.status) {
-      this.setState({
-        status: this.props.status,
-      });
-    }
-  }
+const ProfileStatus = ({ status, updateStatus }) => {
+  const [localStatus, setLocalStatus] = React.useState(status);
+  const [editMode, setEditMode] = React.useState(false);
 
-  state = {
-    editMode: false,
-    status: this.props.status,
+  React.useEffect(() => setLocalStatus(status), [status]);
+
+  const editModeOn = () => setEditMode(true);
+
+  const editModeOff = () => {
+    setEditMode(false);
+    updateStatus(localStatus);
   };
 
-  editModeOn = () => {
-    this.setState({ editMode: true });
-  };
+  const onStatusChange = (e) => setLocalStatus(e.target.value);
 
-  editModeOff = () => {
-    this.setState({ editMode: false });
-
-    this.props.updateStatus(this.state.status);
-  };
-
-  onStatusChange = (e) => {
-    this.setState({
-      status: e.target.value,
-    });
-  };
-
-  render() {
-    return (
-      <div className="profile-main__info-row">
-        <div className="label">Status:</div>
-        {this.state.editMode ? (
-          <>
-            <div className="labeled">
-              <input
-                className="labeled-edit"
-                value={this.state.status ? this.state.status : ''}
-                onChange={this.onStatusChange}
-              />
-            </div>
-            <i onClick={this.editModeOff} className="fas fa-check" />
-          </>
-        ) : (
-          <>
-            <div className="labeled">{this.props.status ? this.props.status : '-'}</div>
-            <i onClick={this.editModeOn} className="fas fa-pencil-alt" />
-          </>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="profile-main__info-row">
+      <div className="label">Status:</div>
+      {editMode ? (
+        <>
+          <div className="labeled">
+            <input
+              className="labeled-edit"
+              value={localStatus ? localStatus : ''}
+              onChange={onStatusChange}
+            />
+          </div>
+          <i onClick={editModeOff} className="fas fa-check" />
+        </>
+      ) : (
+        <>
+          <div className="labeled">{status ? status : '-'}</div>
+          <i onClick={editModeOn} className="fas fa-pencil-alt" />
+        </>
+      )}
+    </div>
+  );
+};
 
 export default ProfileStatus;

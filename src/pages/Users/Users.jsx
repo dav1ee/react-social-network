@@ -17,13 +17,6 @@ const Users = ({
   unfollow,
   onSetCurrentPage,
 }) => {
-  let pages = [];
-  const pagesCount = Math.ceil(usersCount / pageSize);
-
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
   return (
     <div className="users-page">
       <div className="users-page__inner">
@@ -44,7 +37,12 @@ const Users = ({
           )}
         </div>
       </div>
-      <Pagination pages={pages} currentPage={currentPage} onSetCurrentPage={onSetCurrentPage} />
+      <Pagination
+        pageSize={pageSize}
+        itemsCount={usersCount}
+        currentPage={currentPage}
+        onSetCurrentPage={onSetCurrentPage}
+      />
     </div>
   );
 };

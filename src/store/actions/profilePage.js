@@ -1,21 +1,27 @@
-import { CREATE_POST, SET_USER_PROFILE, SET_USER_STATUS } from '../reducers/profilePage';
+import {
+  CREATE_POST,
+  SET_USER_PROFILE,
+  SET_USER_STATUS,
+  DELETE_POST,
+} from '../reducers/profilePage';
 
 import { profileAPI } from '../../api';
 
-export const fetchUserProfile = (userId) => (dispatch) => {
-  profileAPI.getProfile(userId).then((data) => dispatch(setUserProfile(data)));
+export const fetchUserProfile = (userId) => async (dispatch) => {
+  const data = await profileAPI.getProfile(userId);
+  dispatch(setUserProfile(data));
 };
 
-export const fetchUserStatus = (userId) => (dispatch) => {
-  profileAPI.getStatus(userId).then((data) => dispatch(setUserStatus(data)));
+export const fetchUserStatus = (userId) => async (dispatch) => {
+  const data = await profileAPI.getStatus(userId);
+  dispatch(setUserStatus(data));
 };
 
-export const updateUserStatus = (text) => (dispatch) => {
-  profileAPI.updateStatus(text).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setUserStatus(text));
-    }
-  });
+export const updateUserStatus = (text) => async (dispatch) => {
+  const response = await profileAPI.updateStatus(text);
+  if (response.data.resultCode === 0) {
+    dispatch(setUserStatus(text));
+  }
 };
 
 export const createPost = (postText) => ({
@@ -31,4 +37,9 @@ export const setUserProfile = (profile) => ({
 export const setUserStatus = (status) => ({
   type: SET_USER_STATUS,
   payload: status,
+});
+
+export const deletePost = (postId) => ({
+  type: DELETE_POST,
+  payload: postId,
 });

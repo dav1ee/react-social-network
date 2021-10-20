@@ -13,16 +13,18 @@ import {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
+    const { authorizedUserId, fetchUserProfile, fetchUserStatus } = this.props;
+
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = this.props.authorizedUserId;
+      userId = authorizedUserId;
       if (!userId) {
         this.props.history.push('/login');
       }
     }
 
-    this.props.fetchUserProfile(userId);
-    this.props.fetchUserStatus(userId);
+    fetchUserProfile(userId);
+    fetchUserStatus(userId);
   }
 
   render() {
