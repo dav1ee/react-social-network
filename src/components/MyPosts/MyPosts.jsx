@@ -5,14 +5,18 @@ import AddPostForm from './AddPostForm';
 
 import './MyPosts.scss';
 
-const MyPosts = ({ fullName, photo, postsData, createPost, deletePost }) => {
+const MyPosts = ({ fullName, photo, postsData, createPost, deletePost, isOwner }) => {
   const onCreatePost = ({ postText }) => createPost(postText);
 
   return (
     <>
-      <div className="title">Create post:</div>
-      <AddPostForm onSubmit={onCreatePost} />
-      {postsData.length !== 0 && <div className="title">My posts:</div>}
+      {isOwner && (
+        <>
+          <div className="title">Create post:</div>
+          <AddPostForm onSubmit={onCreatePost} />
+        </>
+      )}
+      {postsData.length !== 0 && <div className="title">Posts:</div>}
       <div className="posts">
         {postsData.length !== 0 ? (
           postsData.map((item) => (
@@ -25,11 +29,12 @@ const MyPosts = ({ fullName, photo, postsData, createPost, deletePost }) => {
               likes={item.likes}
               comments={item.comments}
               deletePost={deletePost}
+              isOwner={isOwner}
             />
           ))
         ) : (
           <h2 className="title" style={{ opacity: 0.25, textAlign: 'center' }}>
-            No posts on your profile yet
+            No posts on this profile yet
           </h2>
         )}
       </div>

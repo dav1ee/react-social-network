@@ -9,10 +9,12 @@ import {
   fetchUserProfile,
   fetchUserStatus,
   updateUserStatus,
+  savePhoto,
+  saveProfile,
 } from '../../store/actions/profilePage';
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  updateProfile() {
     const { authorizedUserId, fetchUserProfile, fetchUserStatus } = this.props;
 
     let userId = this.props.match.params.userId;
@@ -27,13 +29,26 @@ class ProfileContainer extends React.Component {
     fetchUserStatus(userId);
   }
 
+  componentDidMount() {
+    this.updateProfile();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.updateProfile();
+    }
+  }
+
   render() {
     return (
       <div style={{ position: 'relative' }}>
         <Profile
+          isOwner={!this.props.match.params.userId}
           profile={this.props.profile}
           status={this.props.status}
           updateStatus={this.props.updateUserStatus}
+          savePhoto={this.props.savePhoto}
+          saveProfile={this.props.saveProfile}
         />
       </div>
     );
@@ -48,6 +63,12 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, { fetchUserProfile, fetchUserStatus, updateUserStatus }),
+  connect(mapStateToProps, {
+    fetchUserProfile,
+    fetchUserStatus,
+    updateUserStatus,
+    savePhoto,
+    saveProfile,
+  }),
   withRouter,
 )(ProfileContainer);

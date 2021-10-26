@@ -71,6 +71,10 @@ small {
   color: #e74c3c;
 }
 
+input[type='file'] {
+  display: none;
+}
+
 .app {
   position: relative;
   display: flex;

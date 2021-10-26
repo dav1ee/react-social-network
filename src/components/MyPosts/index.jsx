@@ -4,11 +4,12 @@ import MyPosts from './MyPosts';
 
 import { createPost, deletePost } from '../../store/actions/profilePage';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { isOwner }) => {
   return {
     fullName: state.profilePage.profile.fullName,
     photo: state.profilePage.profile.photos.small,
     postsData: state.profilePage.postsData,
+    isOwner,
   };
 };
 

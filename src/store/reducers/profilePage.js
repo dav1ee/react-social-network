@@ -2,6 +2,7 @@ export const CREATE_POST = 'CREATE_POST';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_USER_STATUS = 'SET_USER_STATUS';
 export const DELETE_POST = 'DELETE_POST';
+export const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 const initialState = {
   profile: null,
@@ -59,6 +60,12 @@ export const profilePage = (state = initialState, action) => {
       return {
         ...state,
         postsData: state.postsData.filter((post) => post.id !== action.payload),
+      };
+
+    case SAVE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.payload },
       };
 
     default:

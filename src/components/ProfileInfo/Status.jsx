@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileStatus = ({ status, updateStatus }) => {
+const Status = ({ status, updateStatus, isOwner }) => {
   const [localStatus, setLocalStatus] = React.useState(status);
   const [editMode, setEditMode] = React.useState(false);
 
@@ -31,12 +31,12 @@ const ProfileStatus = ({ status, updateStatus }) => {
         </>
       ) : (
         <>
-          <div className="labeled">{status ? status : '-'}</div>
-          <i onClick={editModeOn} className="fas fa-pencil-alt" />
+          <div className="labeled">{status}</div>
+          {isOwner && <i onClick={editModeOn} className="fas fa-pencil-alt" />}
         </>
       )}
     </div>
   );
 };
 
-export default ProfileStatus;
+export default Status;
