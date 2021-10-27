@@ -9,7 +9,7 @@ import './LoginForm.scss';
 
 const Input = withFormControls('input');
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <>
       <form className="login-form inner-block" onSubmit={handleSubmit}>
@@ -22,6 +22,7 @@ const LoginForm = ({ handleSubmit, error }) => {
           'checkbox',
           null,
           'login-form__check',
+          '',
           'Remember Me',
         )}
         <div className="login-form__button">
@@ -29,6 +30,19 @@ const LoginForm = ({ handleSubmit, error }) => {
         </div>
       </form>
       {error && <div className="login-form__error">{error}</div>}
+      <div className="captcha-block">
+        {captchaUrl && <img src={captchaUrl} alt="Captcha" />}
+        {captchaUrl &&
+          createField(
+            Input,
+            [required],
+            'captcha',
+            'text',
+            'Enter text...',
+            null,
+            'captcha-block__input',
+          )}
+      </div>
     </>
   );
 };

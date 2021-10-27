@@ -117,3 +117,40 @@ input[type='file'] {
     text-align: right;
   }
 }
+
+.captcha-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+
+  img {
+    width: 120px;
+    height: 60px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  &__input {
+    width: 150px;
+    height: 30px;
+    margin-left: 20px;
+    padding: 8px 12px;
+    border: 0;
+    border-bottom: 2px solid #d7c2ff;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.1s ease-in-out;
+
+    &:focus {
+      border-color: #8757df;
+    }
+  }
+}
+
+.not-found {
+  font-size: 32px;
+  font-weight: 500;
+  color: #353b48;
+  text-align: center;
+}

@@ -7,7 +7,7 @@ export const createField = (
   type,
   placeholder,
   className,
-  fieldClass,
+  fieldclass = '',
   text = '',
   props = {},
 ) => (
@@ -19,7 +19,7 @@ export const createField = (
       type={type}
       placeholder={placeholder}
       className={className}
-      fieldClass={fieldClass}
+      fieldclass={fieldclass}
       {...props}
     />
     {text}

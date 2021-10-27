@@ -52,12 +52,12 @@ export const createPost = (postText) => ({
   payload: postText,
 });
 
-export const setUserProfile = (profile) => ({
+const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   payload: profile,
 });
 
-export const setUserStatus = (status) => ({
+const setUserStatus = (status) => ({
   type: SET_USER_STATUS,
   payload: status,
 });
@@ -67,7 +67,7 @@ export const deletePost = (postId) => ({
   payload: postId,
 });
 
-export const savePhotoSuccess = (photos) => ({
+const savePhotoSuccess = (photos) => ({
   type: SAVE_PHOTO_SUCCESS,
   payload: photos,
 });

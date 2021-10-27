@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 
 import SidebarContainer from './components/Sidebar';
 import Preloader from './components/Preloader';
@@ -29,6 +29,9 @@ class App extends React.Component {
         <div className="content">
           {this.props.isInitialized ? (
             <Switch>
+              <Route path="/" exact>
+                <Redirect to="/profile" />
+              </Route>
               <Route path="/profile/:userId?">
                 <ProfileContainer />
               </Route>
@@ -49,6 +52,9 @@ class App extends React.Component {
               </Route>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route path="*">
+                <div className="not-found">404 Not found :(</div>
               </Route>
             </Switch>
           ) : (
