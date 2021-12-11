@@ -1,82 +1,126 @@
 import React from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 
-import Users from './Users';
+import UserItem from '../../components/UserItem';
+import Pagination from '../../components/Pagination';
+import Preloader from '../../components/Preloader';
+import UsersSearchForm from '../../components/UsersSearchForm';
 
 import { fetchUsers, follow, unfollow } from '../../store/actions/usersPage';
 import {
   getUsers,
-  getPageSize,
   getUsersCount,
   getCurrentPage,
+  getPageSize,
   getIsLoading,
   getFollowButtonDisabled,
+  getFilter,
 } from '../../store/selectors/users';
 
-import { UserType } from '../../types/types';
-import { GlobalState } from '../../store';
+import { FilterType } from '../../store/reducers/usersPage';
+import './Users.scss';
 
-type MapStatePropsType = {
-  users: Array<UserType>;
-  pageSize: number;
-  usersCount: number;
-  currentPage: number;
-  isLoading: boolean;
-  followButtonDisabled: Array<number>;
+type QueryParamsType = {
+  term?: string;
+  page?: string;
+  friend?: string;
 };
 
-type MapDispatchPropsType = {
-  fetchUsers: (currentPage: number, pageSize: number) => void;
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
-};
+const Users: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-type OwnPropsType = {};
+  const users = useSelector(getUsers);
+  const usersCount = useSelector(getUsersCount);
+  const pageSize = useSelector(getPageSize);
+  const currentPage = useSelector(getCurrentPage);
+  const isLoading = useSelector(getIsLoading);
+  const followButtonDisabled = useSelector(getFollowButtonDisabled);
+  const filter = useSelector(getFilter);
 
-type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
+  const onFollow = (userId: number) => dispatch(follow(userId));
+  const onUnfollow = (userId: number) => dispatch(unfollow(userId));
 
-class UsersContainer extends React.Component<UsersContainerPropsType> {
-  componentDidMount() {
-    const { fetchUsers, currentPage, pageSize } = this.props;
-    fetchUsers(currentPage, pageSize);
-  }
-
-  onSetCurrentPage = (pageNum: number) => {
-    const { fetchUsers, pageSize } = this.props;
-    fetchUsers(pageNum, pageSize);
+  const onSetCurrentPage = (pageNum: number) => {
+    dispatch(fetchUsers(pageNum, pageSize, filter));
   };
 
-  render() {
-    return (
-      <Users
-        users={this.props.users}
-        pageSize={this.props.pageSize}
-        usersCount={this.props.usersCount}
-        currentPage={this.props.currentPage}
-        isLoading={this.props.isLoading}
-        followButtonDisabled={this.props.followButtonDisabled}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
-        onSetCurrentPage={this.onSetCurrentPage}
+  const onSetFilter = (filter: FilterType) => {
+    dispatch(fetchUsers(1, pageSize, filter));
+  };
+
+  React.useEffect(() => {
+    const parsed = queryString.parse(history.location.search) as QueryParamsType;
+
+    let actualPage = currentPage;
+    let actualFilter = filter;
+
+    if (parsed.page) actualPage = Number(parsed.page);
+    if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
+
+    switch (parsed.friend) {
+      case 'null':
+        actualFilter = { ...actualFilter, friend: null };
+        break;
+
+      case 'true':
+        actualFilter = { ...actualFilter, friend: true };
+        break;
+
+      case 'false':
+        actualFilter = { ...actualFilter, friend: false };
+        break;
+    }
+
+    dispatch(fetchUsers(actualPage, pageSize, actualFilter));
+  }, []);
+
+  React.useEffect(() => {
+    const query: QueryParamsType = {};
+
+    if (filter.term) query.term = filter.term;
+    if (filter.friend !== null) query.friend = String(filter.friend);
+    if (currentPage !== 1) query.page = String(currentPage);
+
+    history.push({
+      pathname: '/users',
+      search: queryString.stringify(query),
+    });
+  }, [history, filter, currentPage]);
+
+  return (
+    <div className="users-page">
+      <div className="users-page__inner">
+        <div className="users-list">
+          {isLoading ? (
+            <Preloader className="users-list__preloader" />
+          ) : (
+            users &&
+            users.map((user) => (
+              <UserItem
+                key={`${user.id}_${user.name}`}
+                user={user}
+                followButtonDisabled={followButtonDisabled}
+                onFollow={onFollow}
+                onUnfollow={onUnfollow}
+              />
+            ))
+          )}
+        </div>
+        <div className="users-searchbar inner-block">
+          <UsersSearchForm onSetFilter={onSetFilter} />
+        </div>
+      </div>
+      <Pagination
+        pageSize={pageSize}
+        itemsCount={usersCount}
+        currentPage={currentPage}
+        onSetCurrentPage={onSetCurrentPage}
       />
-    );
-  }
-}
+    </div>
+  );
+};
 
-const mapStateToProps = (state: GlobalState): MapStatePropsType => ({
-  users: getUsers(state),
-  pageSize: getPageSize(state),
-  usersCount: getUsersCount(state),
-  currentPage: getCurrentPage(state),
-  isLoading: getIsLoading(state),
-  followButtonDisabled: getFollowButtonDisabled(state),
-});
-
-export default compose(
-  connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, GlobalState>(mapStateToProps, {
-    fetchUsers,
-    follow,
-    unfollow,
-  }),
-)(UsersContainer);
+export default Users;

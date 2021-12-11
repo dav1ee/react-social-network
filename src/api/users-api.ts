@@ -8,9 +8,12 @@ type GetUsersResponseType = {
 };
 
 export const usersAPI = {
-  getUsers(currentPage = 1, pageSize = 4) {
+  getUsers(currentPage = 1, pageSize = 1, term = '', friend: null | boolean = null) {
     return instance
-      .get<GetUsersResponseType>(`/users?page=${currentPage}&count=${pageSize}`)
+      .get<GetUsersResponseType>(
+        `/users?page=${currentPage}&count=${pageSize}&term=${term}` +
+          (friend === null ? '' : `&friend=${friend}`),
+      )
       .then(({ data }) => data);
   },
 };

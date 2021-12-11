@@ -9,9 +9,14 @@ const initialState = {
   currentPage: 1,
   isLoading: false,
   followButtonDisabled: [] as Array<number>,
+  filter: {
+    term: '',
+    friend: null as null | boolean,
+  },
 };
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 
 export const usersPage = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
@@ -57,6 +62,12 @@ export const usersPage = (state = initialState, action: ActionsTypes): InitialSt
         followButtonDisabled: action.payload.bool
           ? [...state.followButtonDisabled, action.payload.userId]
           : state.followButtonDisabled.filter((id) => id !== action.payload.userId),
+      };
+
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
       };
 
     default:

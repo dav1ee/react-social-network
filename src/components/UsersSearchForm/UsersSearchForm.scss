@@ -1,0 +1,38 @@
+.users-search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__input {
+    padding: 5px 10px;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #d7c2ff;
+
+    &:focus {
+      border-color: #8757df;
+    }
+  }
+
+  &__select {
+    margin-top: 20px;
+    margin-right: 13px;
+    padding: 5px;
+    width: 150px;
+    border: 2px solid #d7c2ff;
+    color: #353b48;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #8757df;
+    }
+  }
+
+  &__button {
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+}

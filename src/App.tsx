@@ -9,10 +9,10 @@ import {
   ProfileContainer,
   DialoguesContainer,
   NewsFeed,
-  UsersContainer,
+  UsersPage,
   Music,
   Settings,
-  Login,
+  LoginPage,
 } from './pages';
 
 import { GlobalState } from './store';
@@ -48,7 +48,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                 <NewsFeed />
               </Route>
               <Route path="/users">
-                <UsersContainer />
+                <UsersPage />
               </Route>
               <Route path="/music">
                 <Music />
@@ -57,7 +57,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                 <Settings />
               </Route>
               <Route path="/login">
-                <Login />
+                <LoginPage />
               </Route>
               <Route path="*">
                 <div className="not-found">404 Not found :(</div>

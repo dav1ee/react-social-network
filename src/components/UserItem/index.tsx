@@ -9,11 +9,11 @@ import './UserItem.scss';
 type PropsType = {
   user: UserType;
   followButtonDisabled: Array<number>;
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
+  onFollow: (userId: number) => void;
+  onUnfollow: (userId: number) => void;
 };
 
-const UserItem: React.FC<PropsType> = ({ user, followButtonDisabled, follow, unfollow }) => {
+const UserItem: React.FC<PropsType> = ({ user, followButtonDisabled, onFollow, onUnfollow }) => {
   return (
     <div className="users-list__item inner-block">
       <div className="users-list__item-avatar">
@@ -26,13 +26,13 @@ const UserItem: React.FC<PropsType> = ({ user, followButtonDisabled, follow, unf
       <div className="users-list__item-right">
         {user.followed ? (
           <button
-            onClick={() => unfollow(user.id)}
+            onClick={() => onUnfollow(user.id)}
             disabled={followButtonDisabled.some((id) => id === user.id)}>
             Unfollow
           </button>
         ) : (
           <button
-            onClick={() => follow(user.id)}
+            onClick={() => onFollow(user.id)}
             disabled={followButtonDisabled.some((id) => id === user.id)}>
             Follow
           </button>
